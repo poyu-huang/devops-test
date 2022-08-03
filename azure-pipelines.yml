@@ -22,3 +22,10 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'az bicep build --file "./Create.bicep"'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: '*.json' 
+    targetFolder: $(Build.ArtifactStagingDirectory)
+  displayName: 'Copy Json File'
