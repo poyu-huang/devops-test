@@ -25,13 +25,6 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Pipeline.Workspace)'
+    targetPath: '$(Pipeline.Workspace)/s/Create.json'
     artifact: 'devops-test'
     publishLocation: 'pipeline'
-
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)'
-#     contents: '*.json' 
-#     targetFolder: $(Build.ArtifactStagingDirectory)/devops-test
-#   displayName: 'Copy Json File'
