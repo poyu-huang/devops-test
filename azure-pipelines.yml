@@ -27,5 +27,5 @@ steps:
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
     contents: '*.json' 
-    targetFolder: $(Build.ArtifactStagingDirectory)
+    targetFolder: $(Build.ArtifactStagingDirectory)/devops-test
   displayName: 'Copy Json File'
