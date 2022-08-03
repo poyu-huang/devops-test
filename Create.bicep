@@ -1,6 +1,14 @@
 @description('The name of the API Management service instance')
 param apiManagementServiceName string = 'apiservice${uniqueString(resourceGroup().id)}'
 
+@description('The email address of the owner of the service')
+@minLength(1)
+param publisherEmail string
+
+@description('The name of the owner of the service')
+@minLength(1)
+param publisherName string
+
 @description('The pricing tier of this API Management service')
 @allowed([
   'Developer'
@@ -25,5 +33,9 @@ resource apiManagementService 'Microsoft.ApiManagement/service@2021-08-01' = {
   sku: {
     name: sku
     capacity: skuCount
+  }
+  properties: {
+    publisherEmail: publisherEmail
+    publisherName: publisherName
   }
 }
