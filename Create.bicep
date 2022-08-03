@@ -1,100 +1,41 @@
-resource symbolicname 'Microsoft.ApiManagement/service@2021-12-01-preview' = {
-  name: 'string'
-  location: 'string'
-  tags: {
-    tagName1: 'tagValue1'
-    tagName2: 'tagValue2'
-  }
+@description('The name of the API Management service instance')
+param apiManagementServiceName string = 'apiservice${uniqueString(resourceGroup().id)}'
+
+@description('The email address of the owner of the service')
+@minLength(1)
+param publisherEmail string
+
+@description('The name of the owner of the service')
+@minLength(1)
+param publisherName string
+
+@description('The pricing tier of this API Management service')
+@allowed([
+  'Developer'
+  'Standard'
+  'Premium'
+])
+param sku string = 'Developer'
+
+@description('The instance size of this API Management service.')
+@allowed([
+  1
+  2
+])
+param skuCount int = 1
+
+@description('Location for all resources.')
+param location string = resourceGroup().location
+
+resource apiManagementService 'Microsoft.ApiManagement/service@2021-08-01' = {
+  name: apiManagementServiceName
+  location: location
   sku: {
-    capacity: int
-    name: 'string'
-  }
-  identity: {
-    type: 'string'
-    userAssignedIdentities: {}
+    name: sku
+    capacity: skuCount
   }
   properties: {
-    additionalLocations: [
-      {
-        disableGateway: bool
-        location: 'string'
-        publicIpAddressId: 'string'
-        sku: {
-          capacity: int
-          name: 'string'
-        }
-        virtualNetworkConfiguration: {
-          subnetResourceId: 'string'
-        }
-        zones: [
-          'string'
-        ]
-      }
-    ]
-    apiVersionConstraint: {
-      minApiVersion: 'string'
-    }
-    certificates: [
-      {
-        certificate: {
-          expiry: 'string'
-          subject: 'string'
-          thumbprint: 'string'
-        }
-        certificatePassword: 'string'
-        encodedCertificate: 'string'
-        storeName: 'string'
-      }
-    ]
-    customProperties: {}
-    disableGateway: bool
-    enableClientCertificate: bool
-    hostnameConfigurations: [
-      {
-        certificate: {
-          expiry: 'string'
-          subject: 'string'
-          thumbprint: 'string'
-        }
-        certificatePassword: 'string'
-        certificateSource: 'string'
-        certificateStatus: 'string'
-        defaultSslBinding: bool
-        encodedCertificate: 'string'
-        hostName: 'string'
-        identityClientId: 'string'
-        keyVaultId: 'string'
-        negotiateClientCertificate: bool
-        type: 'string'
-      }
-    ]
-    notificationSenderEmail: 'string'
-    privateEndpointConnections: [
-      {
-        id: 'string'
-        name: 'string'
-        properties: {
-          privateEndpoint: {}
-          privateLinkServiceConnectionState: {
-            actionsRequired: 'string'
-            description: 'string'
-            status: 'string'
-          }
-        }
-        type: 'string'
-      }
-    ]
-    publicIpAddressId: 'string'
-    publicNetworkAccess: 'string'
-    publisherEmail: 'string'
-    publisherName: 'string'
-    restore: bool
-    virtualNetworkConfiguration: {
-      subnetResourceId: 'string'
-    }
-    virtualNetworkType: 'string'
+    publisherEmail: publisherEmail
+    publisherName: publisherName
   }
-  zones: [
-    'string'
-  ]
 }
