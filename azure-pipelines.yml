@@ -23,9 +23,15 @@ steps:
     targetType: 'inline'
     script: 'az bicep build --file "./Create.bicep"'
 
-- task: CopyFiles@2
+- task: PublishPipelineArtifact@1
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.json' 
-    targetFolder: $(Build.ArtifactStagingDirectory)/devops-test
-  displayName: 'Copy Json File'
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'devops-test'
+    publishLocation: 'pipeline'
+
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)'
+#     contents: '*.json' 
+#     targetFolder: $(Build.ArtifactStagingDirectory)/devops-test
+#   displayName: 'Copy Json File'
