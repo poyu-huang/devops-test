@@ -18,14 +18,24 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: PowerShell@2
+# - task: PowerShell@2
+#   inputs:
+#     targetType: 'inline'
+#     script: |
+#       az bicep build --file "./Create.bicep"
+#       Install-Module -Name Az.Resources -Scope CurrentUser -Repository PSGallery -Force
+#       Get-ChildItem
+      # az deployment group create --resource-group some-other-res --template-file "./Create.json”
+- task: AzureCLI@2
   inputs:
-    targetType: 'inline'
-    script: |
+    azureSubscription: 'Poyuhuang Azure Internal Consumption (61dcfa04-a42c-4d47-8476-9e01feda2573)'
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
       az bicep build --file "./Create.bicep"
-      Install-Module -Name Az.Resources -Scope CurrentUser -Repository PSGallery -Force
-      Get-ChildItem
-      az deployment group create --resource-group some-other-res --template-file "./Create.json”
+            Install-Module -Name Az.Resources -Scope CurrentUser -Repository PSGallery -Force
+            Get-ChildItem
+            az deployment group create --resource-group some-other-res --template-file "./Create.json”
 
 # - task: PublishPipelineArtifact@1
 #   inputs:
