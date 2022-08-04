@@ -33,9 +33,10 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       az bicep build --file "./Create.bicep"
-            Install-Module -Name Az.Resources -Scope CurrentUser -Repository PSGallery -Force
-            Get-ChildItem
-            az deployment group create --resource-group some-other-res --template-file "./Create.json”
+      Install-Module -Name Az.Resources -Scope CurrentUser -Repository PSGallery -Force
+      Get-ChildItem
+      Get-Content -Path "./Create.json"
+      az deployment group create --resource-group some-other-res --template-file "./Create.json"
 
 # - task: PublishPipelineArtifact@1
 #   inputs:
