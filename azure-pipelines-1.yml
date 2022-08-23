@@ -6,7 +6,7 @@
 resources:
   webhooks:
     - webhook: MyWebhook
-      connection: devops-test
+      connection: Github-webhook
 
 trigger:
 - uat
